@@ -1,0 +1,59 @@
+{
+    "Version": "2012-10-17",
+    "Id": "efs-policy-wizard-d4cc91ae-5e51-4824-b81a-6ebaf154bc76",
+    "Statement": [
+        {
+            "Sid": "efs-statement-e942c5bc-a050-4c78-aed9-e4b34335f306",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::080266302756:role/ec2-efs-full-access-role"
+            },
+            "Action": [
+                "elasticfilesystem:ClientWrite",
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientRootAccess"
+            ],
+            "Resource": "arn:aws:elasticfilesystem:eu-west-3:080266302756:file-system/fs-0d9749d74df3bb2e0",
+            "Condition": {
+                "Bool": {
+                    "elasticfilesystem:AccessedViaMountTarget": "true"
+                }
+            }
+        },
+        {
+            "Sid": "test2",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::080266302756:role/ec2-efs-full-access-test2"
+            },
+            "Action": [
+                "elasticfilesystem:ClientWrite",
+                "elasticfilesystem:ClientMount"
+            ],
+            "Resource": "arn:aws:elasticfilesystem:eu-west-3:080266302756:file-system/fs-0d9749d74df3bb2e0",
+            "Condition": {
+                "Bool": {
+                    "elasticfilesystem:AccessedViaMountTarget": "true"
+                }
+            }
+        },
+        {
+            "Sid": "ecs efs",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::080266302756:role/ecs-task-role"
+            },
+            "Action": [
+                "elasticfilesystem:ClientWrite",
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientRootAccess"
+            ],
+            "Resource": "arn:aws:elasticfilesystem:eu-west-3:080266302756:file-system/fs-0d9749d74df3bb2e0",
+            "Condition": {
+                "Bool": {
+                    "elasticfilesystem:AccessedViaMountTarget": "true"
+                }
+            }
+        }
+    ]
+}
