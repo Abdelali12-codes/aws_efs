@@ -1,0 +1,34 @@
+{
+    "Version": "2012-10-17",
+    "Id": "MyFileSystemPolicy",
+    "Statement": [
+        {
+            "Sid": "App1Access",
+            "Effect": "Allow",
+            "Principal": { "AWS": "arn:aws:iam::111122223333:role/app1" },
+            "Action": [
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientWrite"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "elasticfilesystem:AccessPointArn" : "arn:aws:elasticfilesystem:us-east-1:222233334444:access-point/fsap-01234567"
+                }
+            }
+        },
+        {
+            "Sid": "App2Access",
+            "Effect": "Allow",
+            "Principal": { "AWS": "arn:aws:iam::111122223333:role/app2" },
+            "Action": [
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientWrite"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "elasticfilesystem:AccessPointArn" : "arn:aws:elasticfilesystem:us-east-1:222233334444:access-point/fsap-89abcdef"
+                }
+            }
+        }
+    ]
+}
