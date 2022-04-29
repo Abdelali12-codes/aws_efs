@@ -12,40 +12,50 @@ sudo yum install -y amazon-efs-utils
 
 1. file-system-id:/ efs-mount-point efs _netdev,noresvport,tls,iam 0 0
 
-file-system-id:/ efs-mount-point efs _netdev,noresvport,tls,iam 0 0
+* file-system-id:/ efs-mount-point efs _netdev,noresvport,tls,iam 0 0
 
 2. To automatically mount with IAM authorization to a Linux instance using a credentials file
 
-file-system-id:/ efs-mount-point efs _netdev,noresvport,tls,iam,awsprofile=namedprofile 0 0
+* file-system-id:/ efs-mount-point efs _netdev,noresvport,tls,iam,awsprofile=namedprofile 0 0
 
 3. To automatically mount a file system using an EFS access point
 
-file-system-id efs-mount-point efs _netdev,noresvport,tls,accesspoint=access-point-id 0 0
+* file-system-id efs-mount-point efs _netdev,noresvport,tls,accesspoint=access-point-id 0 0
 
 
 4. mount an efs from another region
 
+```
 modify the file efs-utils.conf
 and add to it the region where efs locates
 #region = us-east-1
+```
 
 
 5. mounting one zone file system
+```
 sudo mount -t efs -o az=availability-zone-name,tls file-system-id mount-point/
+```
 
 6. mount using IAM
+```
 sudo mount -t efs -o tls,iam file-system-id efs-mount-point/
+```
 
 
 7. Mounting with IAM using a named profile
+```
 sudo mount -t efs -o tls,iam,awsprofile=namedprofile file-system-id efs-mount-point/
-
+```
 8. mounting using access point
+```
 sudo mount -t efs -o tls,accesspoint=access-point-id file-system-id efs-mount-point
-
+```
 9. Turn Off the ID Mapper
+```
 service rpcidmapd status
  sudo service rpcidmapd stop
+ ```
 
 
 
@@ -55,7 +65,7 @@ service rpcidmapd status
 
 
 
-
+```
 {
     "Version": "2012-10-17",
     "Id": "MyFileSystemPolicy",
@@ -91,10 +101,13 @@ service rpcidmapd status
     ]
 }
 
+```
 
+```
 curl http://169.254.169.254/latest/meta-data/iam/info
-
+```
 
 
 10. to mount a volume using iam 
-add this to user mount command -o iam
+
+* add this to user mount command -o iam
